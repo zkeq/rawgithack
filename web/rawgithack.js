@@ -131,7 +131,7 @@ function show(element) {
         prodEl.value = ghUrl;
         setValid();
       } else if (matches[2] === 'raw') {
-        devEl.value = ghUrl;
+        devEl.value = cdnize(ghUrl);
         let apiUrl = `${GITHUB_API_URL}/repos/${matches[3]}/${matches[4]}/git/refs/heads/${matches[5]}`;
         fetch(apiUrl)
           .then(res => { if (res.ok) return res.json(); })

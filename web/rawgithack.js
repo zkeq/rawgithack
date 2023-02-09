@@ -57,7 +57,7 @@ function maybeConvertUrl(url) {
 }
 
 function cdnize(url) {
-  return url.replace(/^(\w+):\/\/(\w+)/, "$1://$2cdn");
+  return url.replace(/^(\w+):\/\/(\w+)/, "$1://$2-dev");
 }
 
 function onFocus(e) {
@@ -127,17 +127,17 @@ function show(element) {
     if (ghUrl) {
       var matches = ghUrl.match(/^(\w+:\/\/(raw).cmds.run\/([^\/]+)\/([^\/]+))\/([^\/]+)\/(.*)/i);
       if (!matches) {
-        devEl.value = ghUrl;
-        prodEl.value = cdnize(ghUrl);
+        devEl.value = cdnize(ghUrl); 
+        prodEl.value = ghUrl;
         setValid();
       } else if (matches[2] === 'raw') {
-        devEl.value = ghUrl;
+        devEl.value = cdnize(ghUrl);
         let apiUrl = `${GITHUB_API_URL}/repos/${matches[3]}/${matches[4]}/git/refs/heads/${matches[5]}`;
         fetch(apiUrl)
           .then(res => { if (res.ok) return res.json(); })
           .then(data => {
             let ref = data && data.object && data.object.sha ? data.object.sha : matches[5];
-            prodEl.value = cdnize(`${matches[1]}/${ref}/${matches[6]}`);
+            prodEl.value = `${matches[1]}/${ref}/${matches[6]}`;
             setValid();
           });
       }

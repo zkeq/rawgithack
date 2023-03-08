@@ -1,4 +1,4 @@
-const GITHUB_API_URL = 'https://api.github.com';
+const GITHUB_API_URL = 'https://api.onmicrosoft.cn';
 
 const TEMPLATES = [
   [/^(https?):\/\/gitlab\.com\/([^\/]+.*\/[^\/]+)\/(?:raw|blob)\/(.+?)(?:\?.*)?$/i,
